@@ -1,0 +1,55 @@
+{{/* Retrieves the track name and code from the shortcode parameters */}}
+{{ $name := .Get "name" | default "Unnamed track" }}
+{{ $code := .Get "code" }}
+{{ $hidden := lower (.Get "hidden") | default "false" }}
+{{/* Keep tracks of the previous code to avoid adjacent or starting breaks */}}
+{{ .Store.Set "previousChar" "" }}
+
+{{/* Splits the code on empty string, creating a slice of characters */}}
+{{ $slicedCode := split $code "" }}	
+
+<div class="track-container">
+	<span class="track-name">{{ $name }} ({{ $code }})</span>
+	
+	{{/*  Hides the track if it's an hidden track  */}}
+	{{ if eq $hidden "true" }}
+		<p>Track is hidden</p>
+	{{ else }}
+		{{ with $code }}		
+			<div class="track-body">
+				{{/* Adds the background track line */}}
+				<div class="track-line"></div>
+				{{/* 
+					Looping to add each segments of the track 
+					- O is for an empty box
+					- Z is for a marked box
+					- X is for a burned box
+					- I is for a break
+				*/}}
+				{{ with $slicedCode }}				
+					{{ range . }}
+						{{ if eq . "O" }}
+							{{ $.Store.Set "previousChar" "O" }}
+							<div class="track-step"></div>
+						{{ end }}
+						{{ if eq . "Z" }}
+							{{ $.Store.Set "previousChar" "Z" }}
+							<div class="track-step marked"></div>
+						{{ end }}
+						{{ if eq . "X" }}
+							{{ $.Store.Set "previousChar" "X" }}
+							<div class="track-step burned"></div>
+						{{ end }}
+						{{/*  Ensures that a break will never be the first element and that two (or more) contiguous breaks will only display a single one  */}}
+						{{ if and (eq . "I") (ne ($.Store.Get "previousChar") "I") (ne ($.Store.Get "previousChar") "") }}
+							{{ $.Store.Set "previousChar" "I" }}
+							<div class="track-break"></div>
+						{{ end }}
+					{{ end }}
+				{{ end }}
+			</div>
+		{{ else }}
+			<p>Missing track code. Track cannot be displayed.</p>
+		{{ end }}
+	{{ end }}				
+</div>

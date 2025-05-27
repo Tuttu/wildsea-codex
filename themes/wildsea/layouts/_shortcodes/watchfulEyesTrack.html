@@ -1,0 +1,42 @@
+
+{{/* Retrieves the track name and code from the shortcode parameters */}}
+{{ $name := .Get "name" | default "Unnamed track" }}
+{{ $aboveName := .Get "aboveName" }}
+{{ $aboveCode := .Get "aboveCode" | default "0"  }}
+{{ $belowName := .Get "belowName" }}
+{{ $belowCode := .Get "belowCode" | default "0" }}
+
+
+{{ if eq $aboveCode "Z" }}
+	{{ .Store.Set "aboveClass" "marked" }}
+{{ else if eq $aboveCode "X" }}
+	{{ .Store.Set "aboveClass" "burned" }}	
+{{ else }}
+	{{ .Store.Set "aboveClass" "" }}
+{{ end }}
+
+{{ if eq $belowCode "Z" }}
+	{{ .Store.Set "belowClass" "marked" }}
+{{ else if eq $belowCode "X" }}
+	{{ .Store.Set "belowClass" "burned" }}	
+{{ else }}
+	{{ .Store.Set "belowClass" "" }}
+{{ end }}
+
+
+<div class="track-container">
+	<span class="track-name">{{ $name }}</span>
+	<div class="track-body">
+		<div class="icon-stack">
+			<div class="track-step track-above {{ .Store.Get "aboveClass" }}"></div>
+			<div class="connector-top-left"></div>
+			<div class="diagonal-connector"></div>
+			<div class="track-step track-below {{ .Store.Get "belowClass" }}"></div>
+			<div class="connector-bottom-left"></div>
+		</div>
+		<div class="watcher-names">
+			<div class="watcher-label watcher-above">{{ $aboveName }}{{ with $aboveName }} (↑){{ end }}</div>
+			<div class="watcher-label watcher-below">{{ $belowName }}{{ with $belowName }} (↓){{ end }}</div>
+		</div>
+	</div>				
+</div>
