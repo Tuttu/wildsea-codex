@@ -1,0 +1,16 @@
+{{ $stamp := .Get "stamp" }}
+{{ .Store.Set "class" "" }}
+
+{{ if eq $stamp "arconautics" }}
+    {{ $.Store.Set "class" "arconautics" }}
+{{ else if eq $stamp "spiritual" }}
+    {{ $.Store.Set "class" "spiritual" }}
+{{ else if eq $stamp "technology" }}
+    {{ $.Store.Set "class" "technology" }}
+{{ else }}
+    {{ $.Store.Set "class" "" }}
+{{ end }}    
+
+<div class=" stamp {{ $.Store.Get "class" }}">
+   {{ .Inner | $.Page.RenderString }}
+</div>

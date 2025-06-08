@@ -9,7 +9,7 @@
 {{ $slicedCode := split $code "" }}	
 
 <div class="track-container">
-	<span class="track-name">{{ $name }} ({{ $code }})</span>
+	<span class="track-name">{{ $name }}{{ cond $code (printf " (%s)" $code) "" }}</span>
 	
 	{{/*  Hides the track if it's an hidden track  */}}
 	{{ if eq $hidden "true" }}

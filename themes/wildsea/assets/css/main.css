@@ -1,163 +1,52 @@
 body {
-  color: #222;
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin: 1rem;
-  max-width: 768px;
+	color: #222;
+	font-family: sans-serif;
+	line-height: 1.5;
+	margin: 1rem;
+	max-width: 768px;
 }
 
 header {
-  border-bottom: 1px solid #222;
-  margin-bottom: 1rem;
+	border-bottom: 1px solid #222;
+	margin-bottom: 1rem;
 }
 
 footer {
-  border-top: 1px solid #222;
-  margin-top: 1rem;
+	border-top: 1px solid #222;
+	margin-top: 1rem;
 }
 
 a {
-  color: #00e;
-  text-decoration: none;
+	color: #00e;
+	text-decoration: none;
 }
 
+/* .stamp {
+	background-position: 10px 10px;
+	background-size: 10%;
+	background-repeat: no-repeat;
+	background-color: rgba(255,255,255,0.6);
+	background-blend-mode: lighten;
+} */
 
-/* TRACKS */
+.arconautics {
+	background-image: url("../img/stamp-arconautics.png");
+}
 
-/* Tracks main container */
-.track-container {
-	padding: 20px;
+.stamp {
 	position: relative;
-	width: fit-content;
+	overflow: hidden;
+	min-height: 150px;
 }
 
-/* Used to make the track line overlap around the first and last boxes*/
-.track-body {
-	display: flex;
-	position: relative;
-	align-items: center;
-	gap: 10px; /* Space between boxes */
-	width: fit-content;
-}
-
-/* Background track line */
-.track-line {
-	position: absolute;   
-	left: 0;
-	width: 100%;
-	height: 3px;
-	background-color: #2F2F2F;
-	z-index: 0;
-}
-
-/* Base style for track boxes */
-.track-step {
-	width: 24px;
-	height: 24px;
-	border: 3px solid #2F2F2F;
-	border-radius: 50%;
-	background: white;
-	position: relative;
-	z-index: 2;
-}
-
-/* Common style for marked and burned box */
-.track-step.burned::before,
-.track-step.burned::after,
-.track-step.marked::after {
+.stamp::before {
 	content: "";
 	position: absolute;
-	width: 105%;
-	height: 3px;
-	background-color: #2F2F2F;
-	top: 50%;
-	left: 50%;
-	transform-origin: center;
-}
+	width: 10%;
+	height: 10%;
 
-/* First diagonal (top-left to bottom-right) */
-/* only for burned box */
-.track-step.burned::before {
-	transform: translate(-50%, -50%) rotate(45deg);
-}
-
-/* Second diagonal (top-right to bottom-left) */
-/* For both marked and burned boxes */
-.track-step.burned::after,
-.track-step.marked::after {
-	transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Style for Breaks */
-.track-break {
-	width: 3px;
-	height: 20px; /* Same as the circle's diameter */
-	background-color: #2F2F2F;
-	border-radius: 2px;
-	position: relative;
-	z-index: 1;
-}
-
-
-/* WATCHFUL EYES */
-/* Diagonal layout container */
-.icon-stack {
-	position: relative;
-	width: 53px; /* enough to contain diagonal offset */
-	height: 53px;
-}
-
-/* Top-left circle */
-.track-above {
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-/* Bottom-right circle */
-.track-below {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-}
-
-/* Diagonal connector between the two circles */
-.diagonal-connector {
-	position: absolute;
-	top: 12px; /* halfway down from top circle */
-	left: 15px; /* halfway across from left circle */
-	width: 34px; /* slightly longer than the offset between centers */
-	height: 5px;
-	background-color: #2F2F2F;
-	transform: rotate(45deg);
-	transform-origin: top left;
-	z-index: 1;
-}
-
-/* Horizontal line from top-left circle */
-.connector-top-left {
-	position: absolute;
-	top: 12px; /* vertically centered with top circle */
-	left: -6px; /* adjust length/spacing */
-	width: 6px;
-	height: 5px;
-	background-color: #2F2F2F;
-	z-index: 1;
-}
-
-/* Diagonal line from bottom-right circle to bottom-left (↖) */
-.connector-bottom-left {
-	position: absolute;
-	bottom: 2px; /* vertically centered with bottom circle */
-	left: 16px;
-	width: 8px;
-	height: 5px;
-	background-color: #2F2F2F;
-	transform: rotate(135deg);
-	transform-origin: bottom right;
-	z-index: 1;
-}
-
-.watcher-above {
-	margin-left: -20px
+	z-index: -1;
+	background-position: 10px 10px;
+	background-size: 10%;
+	transform: rotate(-30deg);
 }

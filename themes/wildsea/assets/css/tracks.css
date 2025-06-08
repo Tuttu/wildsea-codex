@@ -1,0 +1,220 @@
+/* TRACKS */
+
+:root {
+	--track-color: #2F2F2F;
+	--track-width: 3px;
+	--track-width-large: 5px;
+	--track-width-extra-large: 7px;
+}
+
+/* Tracks main container */
+.track-container {
+	padding: 20px;
+	position: relative;
+	width: fit-content;
+}
+
+/* Used to make the track line stay behind the first and last boxes*/
+.track-body {
+	display: flex;
+	position: relative;
+	align-items: center;
+	gap: 10px; /* Space between boxes */
+	width: fit-content;
+}
+
+/* Background track line */
+.track-line {
+	position: absolute;   
+	left: 0;
+	width: 100%;
+	height: var(--track-width);
+	background-color: var(--track-color);
+	z-index: 0;
+}
+
+/* Base style for track boxes */
+.track-step {
+	width: 24px;
+	height: 24px;
+	border: var(--track-width) solid var(--track-color);
+	border-radius: 50%;
+	background: white;
+	position: relative;
+	z-index: 2;
+}
+
+/* Common style for marked and burned box */
+.track-step.burned::before,
+.track-step.burned::after,
+.track-step.marked::after {
+	content: "";
+	position: absolute;
+	width: 105%;
+	height: var(--track-width);
+	background-color: var(--track-color);
+	top: 50%;
+	left: 50%;
+	transform-origin: center;
+}
+
+/* First diagonal (top-left to bottom-right) */
+/* only for burned box */
+.track-step.burned::before {
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Second diagonal (top-right to bottom-left) */
+/* For both marked and burned boxes */
+.track-step.burned::after,
+.track-step.marked::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Style for Breaks */
+.track-break {
+	width: var(--track-width);
+	height: 20px; /* Same as the circle's diameter */
+	background-color: var(--track-color);
+	border-radius: 2px;
+	position: relative;
+	z-index: 1;
+}
+
+
+/* WATCHFUL EYES */
+/* Diagonal layout container */
+.icon-stack {
+	position: relative;
+	width: 60px; /* enough to contain diagonal offset */
+	height: 60px;
+}
+
+/* Top-left circle */
+.track-above {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-width: var(--track-width-large);
+}
+
+/* Bottom-right circle */
+.track-below {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border-width: var(--track-width-large);
+}
+
+.track-step.track-above.burned::before,
+.track-step.track-below.burned::before,
+.track-step.track-above.burned::after,
+.track-step.track-above.marked::after,
+.track-step.track-below.burned::after,
+.track-step.track-below.marked::after {
+	height: var(--track-width-large);
+}
+
+/* Diagonal connector between the two circles */
+.diagonal-connector {
+	position: absolute;
+	top: 24px; /* halfway down from top circle */
+	left: 28px; /* halfway across from left circle */
+	width: 10px; /* slightly longer than the offset between centers */
+	height: var(--track-width-extra-large);
+	background-color: var(--track-color);
+	transform: rotate(45deg);
+	transform-origin: top left;
+	z-index: 1;
+}
+
+/* Horizontal line from top-left circle */
+.connector-top-left {
+	position: absolute;
+	top: 13px; /* vertically centered with top circle */
+	left: -7px; /* adjust length/spacing */
+	width: 8px;
+	height: var(--track-width-extra-large);
+	background-color: var(--track-color);
+	z-index: 1;
+}
+
+/* Diagonal line from bottom-right circle to bottom-left (↖) */
+.connector-bottom-left {
+	position: absolute;
+	bottom: 3px; /* vertically centered with bottom circle */
+	left: 17px;
+	width: 8px;
+	height: var(--track-width-extra-large);
+	background-color: var(--track-color);
+	transform: rotate(135deg);
+	transform-origin: bottom right;
+	z-index: 1;
+}
+
+.watcher-above {
+	margin-left: -20px
+}
+
+/* PRESSURE GAUGE */
+/* --- Start circle with bars --- */
+
+.pressure-gauge {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.pressure-gauge .track-body {
+	padding-left: 10px;
+}
+
+/* --- Start circle with bars --- */
+.track-start {
+	position: relative;
+}
+
+.start-circle {
+	width: 32px;
+	height: 32px;
+	background: white;
+	border: 5px solid var(--track-color);
+	border-radius: 50%;
+	position: relative;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-size: 1.6em;
+	color: var(--track-color);
+}
+
+/* Bars (lines) */
+.bar {
+	position: absolute;
+	height: var(--track-width-extra-large);
+	background: var(--track-color);
+}
+
+.bar-top {
+	width: 15px;
+	top: -3px;
+	left: -12px;
+	transform: rotate(45deg);
+}
+
+.bar-mid {
+	width: 10px;
+	top: 50%;
+	left: -12px;
+	transform: translateY(-50%);
+}
+
+.bar-bot {
+	width: 7px;
+	bottom: 0px;
+	left: -6px;
+	transform: rotate(-45deg);
+}

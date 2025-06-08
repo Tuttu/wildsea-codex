@@ -15,3 +15,7 @@ tags = ['red']
 ## Watchful Eyes tests
 {{< watchfulEyesTrack name="The Sea is watching" aboveName="Above" aboveCode="Z" belowName="Below" belowCode="X" >}}
 {{< watchfulEyesTrack >}}
+
+## Pressure Gauge tests
+{{< pressureGaugeTrack name="The Crushing Depth" level="1" code="ZZO" >}}
+{{< pressureGaugeTrack >}}

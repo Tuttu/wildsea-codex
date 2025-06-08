@@ -1,0 +1,47 @@
+{{/* Retrieves the track name and code from the shortcode parameters */}}
+{{ $name := .Get "name" | default "Unnamed Pressure Gauge track" }}
+{{ $level := .Get "level" | default 0 }}
+{{ $code := .Get "code" }}
+
+{{/* Splits the code on empty string, creating a slice of characters */}}
+{{ $slicedCode := split $code "" }}	
+
+<div class="track-container">
+	<span class="track-name">{{ $name }}{{ cond $code (printf " (%1s - %2s)" $level $code) "" }}</span>	
+	{{ with $code }}
+	<div class="pressure-gauge">
+		<div class="track-start">
+			<div class="start-circle">
+				<span class="track-count">{{ $level }}</span>
+				<div class="bar bar-top"></div>
+				<div class="bar bar-mid"></div>
+				<div class="bar bar-bot"></div>
+			</div>
+		</div>
+				
+		<div class="track-body">
+			{{/* Adds the background track line */}}
+			<div class="track-line"></div>
+			{{/* 
+				Looping to add each segments of the track 
+				- O is for an empty box
+				- Z is for a marked box
+			*/}}
+			{{ with $slicedCode }}				
+				{{ range . }}
+					{{ if eq . "O" }}
+						{{ $.Store.Set "previousChar" "O" }}
+						<div class="track-step"></div>
+					{{ end }}
+					{{ if eq . "Z" }}
+						{{ $.Store.Set "previousChar" "Z" }}
+						<div class="track-step marked"></div>
+					{{ end }}
+				{{ end }}
+			{{ end }}
+		</div>
+		{{ else }}
+			<p>Missing track code. Track cannot be displayed.</p>
+		{{ end }}
+	</div>				
+</div>
