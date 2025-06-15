@@ -50,3 +50,28 @@ a {
 	background-size: 10%;
 	transform: rotate(-30deg);
 }
+
+.stamp {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+}
+
+.stamp::before {
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 20%;
+	height: 20%;
+	background-size: cover;
+	background-position: center;
+	transform: rotate(45deg); /* Change the degree as needed */
+	transform-origin: center;
+	opacity: 50%;
+}
+
+.arconautics::before {
+	background-image: url("/img/stamp-arconautics.png");
+}
