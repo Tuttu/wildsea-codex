@@ -1,4 +1,4 @@
-baseURL = 'https://github.com/Tuttu/wildsea-codex'
+baseURL = 'https://tuttu.github.io/wildsea-codex/'
 languageCode = 'en-us'
 title = 'Wildsea Codex'
 theme = 'wildsea'
