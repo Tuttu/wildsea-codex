@@ -11,11 +11,7 @@
     {{ $.Store.Set "class" "" }}
 {{ end }}    
 
-<div class=" stamp {{ $.Store.Get "class" }}">
-   {{ .Inner | $.Page.RenderString }}
-</div>
-
 <div class=" stamp {{ $.Store.Get "class" }}">    
-    <img src="{{ printf "img/stamp-%s.png" ($.Store.Get "class") | relURL }}" class="rotated-img">
+    <img src="{{ printf "img/stamp-%s.png" ($.Store.Get "class") | relURL }}" class="rotated-stamp">
     {{ .Inner | $.Page.RenderString }}
 </div>

@@ -42,6 +42,7 @@
 	background: white;
 	position: relative;
 	z-index: 2;
+	box-sizing: content-box;
 }
 
 /* Common style for marked and burned box */
@@ -189,6 +190,7 @@
 	font-family: sans-serif;
 	font-size: 1.6em;
 	color: var(--track-color);
+	box-sizing: content-box;
 }
 
 /* Bars (lines) */
