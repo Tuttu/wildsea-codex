@@ -5,6 +5,7 @@ draft = false
 tags = ['red','green']
 +++
 
+# Stamp tests
 {{< backgroundStamp stamp="technology" >}}
 **Warning!** This action is destructive!
 

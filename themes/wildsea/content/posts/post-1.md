@@ -11,6 +11,7 @@ tags = ['red']
 {{< track code="ZZXOOIOOO" name="Track 1" >}}
 {{< track code="IZZIIXOOIOOOOOOOO" name="Track 2" >}}
 {{< track code="IZZIIXOOIOOO" name="Track 3" hidden="true" >}}
+{{< track code="IZZIIXOOIOZZOOOOOO" name="Track 4" >}}
 
 ## Watchful Eyes tests
 {{< watchfulEyesTrack name="The Sea is watching" aboveName="Above" aboveCode="Z" belowName="Below" belowCode="X" >}}

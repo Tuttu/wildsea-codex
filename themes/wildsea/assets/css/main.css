@@ -21,6 +21,9 @@ a {
 	text-decoration: none;
 }
 
+ul {
+	list-style-image: url('/wildsea-codex/img/leaf-bullet-small.png');
+}
 
 /* BACKGROUND STAMPS */
 .stamp {
