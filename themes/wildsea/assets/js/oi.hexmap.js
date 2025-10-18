@@ -434,12 +434,12 @@
         
 		// MODIFICATION: Renamed function for clarity
 		this.drawLabelImages = function(){
-			if(labellayer && attr.images && attr.images.length > 0){
+			if(labellayer && attr.labelImages && attr.labelImages.length > 0){
 				labellayer.innerHTML = "";
 				this.labelImages = [];
 
-				for(var i = 0; i < attr.images.length; i++){
-					var imgConfig = attr.images[i];
+				for(var i = 0; i < attr.labelImages.length; i++){
+					var imgConfig = attr.labelImages[i];
 					var imgEl = document.createElement('img');
 					
 					imgEl.src = imgConfig.src;
@@ -495,41 +495,6 @@
 			}
 			return this;
 		};
-
-		// --- NEW OVERFLOW IMAGE FUNCTIONS START ---
-		// this.drawOverflowImages = function(){
-		// 	if(overflowimagelayer && attr.overflowImages && attr.overflowImages.length > 0){
-		// 		overflowimagelayer.innerHTML = "";
-		// 		this.overflowImages = [];
-		// 		this.overflowImageMap = {};
-
-		// 		for(var i = 0; i < attr.overflowImages.length; i++){
-		// 			var imgConfig = attr.overflowImages[i];
-		// 			var imgEl = document.createElement('img');
-					
-		// 			imgEl.src = imgConfig.src;
-		// 			imgEl.style.position = 'absolute';
-		// 			imgEl.style.width = imgConfig.width + 'px';
-		// 			imgEl.style.height = imgConfig.height + 'px';
-
-		// 			// Note: No mouseover-hide event listener is added here.
-					
-		// 			var imageRef = {
-		// 				el: imgEl,
-		// 				config: imgConfig
-		// 			};
-		// 			this.overflowImages.push(imageRef);
-					
-		// 			// Add to map for quick lookup by hex ID
-		// 			if(imgConfig.hex) this.overflowImageMap[imgConfig.hex] = imgEl;
-
-		// 			overflowimagelayer.appendChild(imgEl);
-		// 		}
-		// 	}
-		// 	return this;
-		// };
-
-		// In oi.hexmap.js, find and replace this entire function.
 
 		this.drawOverflowImages = function(){
 			if(overflowimagelayer && attr.overflowImages && attr.overflowImages.length > 0){

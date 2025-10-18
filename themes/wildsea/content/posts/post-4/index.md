@@ -15,6 +15,8 @@ categories = ['Location']
 >}}
 
 {{< hexmap 
-    hexjson="map/providence.hexjson"
+    hexjson="providence.hexjson"
+    overflowImages="providence-overflow2.json"
+    labelImages="providence-labels2.json"
     legend="false"
 >}}
