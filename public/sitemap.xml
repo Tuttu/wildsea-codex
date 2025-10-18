@@ -5,16 +5,28 @@
     <loc>http://localhost:1313/wildsea-codex/tags/blue/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/wildsea-codex/categories/</loc>
+    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/wildsea-codex/tags/green/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/wildsea-codex/categories/location/</loc>
+    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/wildsea-codex/posts/post-3/</loc>
+    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/wildsea-codex/posts/post-4/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/wildsea-codex/tags/red/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/wildsea-codex/tags/</loc>
+    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/wildsea-codex/categories/test/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/wildsea-codex/posts/post-2/</loc>
@@ -28,7 +40,5 @@
   </url><url>
     <loc>http://localhost:1313/wildsea-codex/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/wildsea-codex/categories/</loc>
   </url>
 </urlset>

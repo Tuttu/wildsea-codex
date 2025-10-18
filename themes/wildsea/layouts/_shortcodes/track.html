@@ -4,6 +4,9 @@
 {{ $hidden := lower (.Get "hidden") | default "false" }}
 {{/* Keep tracks of the previous code to avoid adjacent or starting breaks */}}
 {{ .Store.Set "previousChar" "" }}
+{{/* Used to check if the track is valid (no empty box before a mark or a burn) */}}
+{{ .Store.Set "hasEmptyBox" false }}
+{{ .Store.Set "validationError" "" }}
 
 {{/* Splits the code on empty string, creating a slice of characters */}}
 {{ $slicedCode := split $code "" }}	
@@ -15,41 +18,77 @@
 	{{ if eq $hidden "true" }}
 		<p>Track is hidden</p>
 	{{ else }}
-		{{ with $code }}		
-			<div class="track-body">
-				{{/* Adds the background track line */}}
-				<div class="track-line"></div>
-				{{/* 
-					Looping to add each segments of the track 
-					- O is for an empty box
-					- Z is for a marked box
-					- X is for a burned box
-					- I is for a break
-				*/}}
-				{{ with $slicedCode }}				
-					{{ range . }}
-						{{ if eq . "O" }}
-							{{ $.Store.Set "previousChar" "O" }}
-							<div class="track-step"></div>
-						{{ end }}
-						{{ if eq . "Z" }}
-							{{ $.Store.Set "previousChar" "Z" }}
-							<div class="track-step marked"></div>
-						{{ end }}
-						{{ if eq . "X" }}
-							{{ $.Store.Set "previousChar" "X" }}
-							<div class="track-step burned"></div>
-						{{ end }}
-						{{/*  Ensures that a break will never be the first element and that two (or more) contiguous breaks will only display a single one  */}}
-						{{ if and (eq . "I") (ne ($.Store.Get "previousChar") "I") (ne ($.Store.Get "previousChar") "") }}
-							{{ $.Store.Set "previousChar" "I" }}
-							<div class="track-break"></div>
+		{{ with $code }}	
+			{{/* --- 1. PRE-VALIDATION PASS --- */}}
+            {{/* We loop through the code once just to find errors.
+              The rule: An empty box (O) cannot appear *after* a 
+              marked (Z) or burned (X) box.
+            */}}
+            {{ with $slicedCode }}
+                {{ range . }}
+                    {{ $char := . }}
+                    {{ $hasEmpty := $.Store.Get "hasEmptyBox" }}
+
+                    {{/* If we find an 'O', set the flag to true */}}
+                    {{ if eq $char "O" }}
+                        {{ $.Store.Set "hasEmptyBox" true }}
+                    {{ end }}
+
+                    {{/* If we find a 'Z' or 'X' AND the 'hasEmpty' flag is already true, it's an error */}}
+                    {{ if and (or (eq $char "Z") (eq $char "X")) $hasEmpty }}
+                        {{/* Set the error message (only once) */}}
+                        {{ if not ($.Store.Get "validationError") }}
+                            {{ $.Store.Set "validationError" (printf "Invalid track code ('%s'): Found marked 'Z' or 'X' after an empty box 'O'." $code) }}
+                        {{ end }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+            {{/* --- End of Validation Pass --- */}}
+		
+
+			{{/* --- 2. RENDER OR SHOW ERROR --- */}}
+            {{ $error := $.Store.Get "validationError" }}
+            {{ if $error }}
+                {{/* An error was found! Display it. */}}
+                <p class="track-error">{{ $error }}</p>
+            {{ else }}
+				{{/* No error, proceed with rendering the track */}}
+				<div class="track-body">
+					{{/* Adds the background track line */}}
+					<div class="track-line"></div>
+					{{/* 
+						Looping to add each segments of the track 
+						- O is for an empty box
+						- Z is for a marked box
+						- X is for a burned box
+						- I is for a break
+					*/}}
+					{{ with $slicedCode }}				
+						{{ range . }}
+							{{ if eq . "O" }}
+								{{ $.Store.Set "previousChar" "O" }}
+								<div class="track-step"></div>
+							{{ end }}
+							{{ if eq . "Z" }}
+								{{ $.Store.Set "previousChar" "Z" }}
+								<div class="track-step marked"></div>
+							{{ end }}
+							{{ if eq . "X" }}
+								{{ $.Store.Set "previousChar" "X" }}
+								<div class="track-step burned"></div>
+							{{ end }}
+							{{/*  Ensures that a break will never be the first element and that two (or more) contiguous breaks will only display a single one  */}}
+							{{ if and (eq . "I") (ne ($.Store.Get "previousChar") "I") (ne ($.Store.Get "previousChar") "") }}
+								{{ $.Store.Set "previousChar" "I" }}
+								<div class="track-break"></div>
+							{{ end }}
 						{{ end }}
 					{{ end }}
-				{{ end }}
-			</div>
+				</div>
+				{{ end }} {{/* End of error check */}}
+				
 		{{ else }}
-			<p>Missing track code. Track cannot be displayed.</p>
+			<p class="track-error">Missing track code. Track cannot be displayed.</p>
 		{{ end }}
 	{{ end }}				
 </div>

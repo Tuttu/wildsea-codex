@@ -1,0 +1,60 @@
+{{/* Get file names from parameters */}}
+{{ $hexjsonFilename := .Get "hexjson" | default "" }}
+{{ $overflowFilename := .Get "overflowImages" | default "" }}
+{{ $labelFilename := .Get "labelImages" | default "" }}
+{{ $showLegend := .Get "legend" | default "false" }}
+
+{{/* Generate a unique ID for this map instance */}}
+{{ $mapID := printf "hexmap-%d" .Ordinal }}
+
+{{/*
+  --- Resource Path Logic ---
+  We now try to find the file as a Page Resource first.
+  If found, we use its .RelPermalink.
+  If not found, we fall back to relURL (for files in /static).
+*/}}
+
+{{/* --- Get HexJSON Path --- */}}
+{{ $hexjsonPath := "" }}
+{{ with .Page.Resources.GetMatch $hexjsonFilename }}
+    {{/* Found it in the page bundle! */}}
+    {{ $hexjsonPath = .RelPermalink }}
+{{ else }}
+    {{/* Not in bundle. Assume it's a static path (e.g., /maps/file.json) */}}
+    {{ $hexjsonPath = $hexjsonFilename | relURL }}
+{{ end }}
+
+{{/* --- Get Overflow Images Path --- */}}
+{{ $overflowImgPath := "" }}
+{{ with .Page.Resources.GetMatch $overflowFilename }}
+    {{ $overflowImgPath = .RelPermalink }}
+{{ else }}
+    {{ $overflowImgPath = $overflowFilename | relURL }}
+{{ end }}
+
+{{/* --- Get Label Images Path --- */}}
+{{ $labelImgPath := "" }}
+{{ with .Page.Resources.GetMatch $labelFilename }}
+    {{ $labelImgPath = .RelPermalink }}
+{{ else }}
+    {{ $labelImgPath = $labelFilename | relURL }}
+{{ end }}
+
+
+{{/* --- Render the Wrapper --- */}}
+<div class="hexmap-wrapper" 
+     data-map-id="{{ $mapID }}"
+     data-hexjson-path="{{ $hexjsonPath }}"
+     data-overflow-images-path="{{ $overflowImgPath }}"
+     data-label-images-path="{{ $labelImgPath }}"
+     data-show-legend="{{ $showLegend }}">
+
+    {{/* Conditionally render the legend *before* the map */}}
+    {{ if eq $showLegend "true" }}
+        {{ partial "hexmap-legend.html" . }}
+    {{ end }}
+
+    {{/* This is the div our JS will target */}}
+    <div id="{{ $mapID }}" class="hexmap-container">
+        </div>
+</div>

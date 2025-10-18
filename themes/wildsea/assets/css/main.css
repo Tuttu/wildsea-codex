@@ -51,10 +51,11 @@ ul {
 	background-image: url('/wildsea-codex/img/bg-parchment.png');
 	background-blend-mode: multiply;
 	border: 5px solid #30532a;
+	margin: 10px;
 	padding: 5px;
 	width: 512px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-	color: #214221;
+	color: #214221;	
 }
 
 .title {

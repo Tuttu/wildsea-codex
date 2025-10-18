@@ -1,0 +1,261 @@
+@keyframes fadeInOutline {
+    from {
+        /* Start fully transparent */
+        opacity: 0;
+    }
+    to {
+        /* End fully opaque */
+        opacity: 1;
+    }
+}
+
+.hexmap-container { 
+    /*width: 932px; 
+    height: 964px; */
+    width: 1000px;
+    height: 932px;
+    background-color:#A29164;
+    background-image: url('Dark-Mist.png');
+    background-repeat: no-repeat;
+    background-position: 319px 377px;
+    position: relative;
+    z-index: 0;
+}
+
+/* START: New rule to control SVG layer stacking */
+.hexmap-container .oi-map-map {
+    position: relative; /* z-index requires a position property */
+    z-index: 1; /* Renders this layer above the overflow images */
+}
+/* END: New rule */
+
+.hexmap-container .hex path {
+    /* stroke: #817B58;  */
+    stroke-width: 0;
+    /* z-index: 3;    
+    transition: transform 0.2s ease-in-out, stroke-width 0.2s ease-in-out; */
+    fill-opacity: 0;
+}
+
+.hexmap-container .hover path { 
+    stroke-width: 0px; 
+    /* transform: scale(1.75);  
+    stroke: black;*/
+}
+
+.hexmap-container .overlay .outline path {
+    animation: fadeInOutline 0.2s ease-in-out forwards;
+    /* Apply the animation we defined
+    Match the duration of your other transition
+    Keep the same smooth timing
+    This is important: it keeps the element visible after the animation ends */    
+}
+
+.hex {
+    position: absolute;
+    /* Default z-index for normal hexes */
+    z-index: 1;
+}
+
+.hex:hover {
+    z-index: 3; /* Move hovered hex above the compass */
+}
+
+.hexmap-container .data-layer .chevron path { 
+    fill: url(#chevron-pattern)!important;
+}
+
+.hexmap-container .data-layer .swirl path { 
+    fill: url(#swirl-pattern)!important;
+}
+
+.hexmap-container .data-layer .providence path { 
+    fill: url(#providence-pattern)!important;
+}
+.hexmap-container .data-layer .wave path { 
+    fill: url(#wave-pattern)!important;
+}
+
+
+#compass {
+    position: absolute; 
+    bottom: 30px; 
+    left: 30px; 
+    width: 67px; 
+    height: 71px; 
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+
+
+/* ADD THIS TO YOUR style.css FILE */
+
+/* Make the image layer container transparent to mouse events,
+  so hovering on empty space goes through to the map.
+*/
+.label-layer {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3; /* Ensure labels are on top of the overflow images */
+}
+
+/* But make the images themselves receive mouse events initially.
+  Add a transition for a smooth fade effect.
+*/
+.label-layer img {
+    pointer-events: auto;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* This new class will define the 'hidden' state for an image:
+  fully transparent and no longer blocking mouse events.
+*/
+.label-layer img.image-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- OVERFLOW LAYER STYLES --- */
+/* This new layer will hold overflowing images that scale on hover. */
+.overflow-image-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to go through to the map */
+    z-index: 2; /* Position it above the SVG hexes but below the labels */
+}
+
+.overflow-image-layer img {
+    position: absolute;
+    /* Add a transition to make the scaling smooth, matching the hex transition */
+    transition: transform 0.2s ease-in-out, z-index 0.2s ease-in-out;
+    
+}
+
+.overflow-image-layer img:hover {
+    transform: scale(1.75); 
+    z-index: 10;
+}
+
+#legend-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #817B58;
+    border-radius: 5px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+    font-family: sans-serif;
+    width: 200px;
+}
+
+#legend-filter {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.legend-section {
+    margin-bottom: 10px;
+}
+.legend-section:last-child {
+    margin-bottom: 0;
+}
+
+.collapsible-header {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px; /* Space for the arrow */
+}
+
+.collapsible-header::after {
+    content: '▲'; /* Collapsed state arrow */
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+
+.collapsible-header.active::after {
+    transform: translateY(-50%) rotate(0deg); /* Expanded state arrow */
+}
+
+.collapsible-content {
+    max-height: 500px; /* Set a large max-height for expanded state */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.collapsible-header:not(.active) + .collapsible-content {
+    max-height: 0; /* Collapsed state */
+}
+
+.hexmap-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.hexmap-legend li {
+    padding: 8px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.2s ease-in-out;
+}
+.hexmap-legend li:hover {
+    background-color: #e0e0e0;
+}
+
+/* Class to hide filtered items/sections */
+.hidden {
+    display: none !important;
+}
+/* --- END: New Legend Styles --- */
+
+
+.hexmap-container .tooltip { 
+    position: absolute; 
+    text-align: center; 
+    background: black; 
+    color: white; 
+    padding: 0.5rem; 
+    transform: translate3d(-50%,50%,0); 
+    transition: left 0.1s linear, top 0.1s linear; 
+    border-radius: 4px; 
+    z-index: 10
+}
+
+.hexmap-container .tooltip::after { content: ""; position: absolute; bottom: auto; width: 0; height: 0; border: 0.5em solid transparent; left: 50%; top: 0%; transform: translate3d(-50%,-100%,0); border-color: transparent; border-bottom-color: black; }
+
+/* --- Boundary Highlight Style --- */
+/* This class will be added via JavaScript on hover */
+.lines path.boundary-highlight {
+    stroke: #D9534F; /* A distinct red color */
+    stroke-width: 4px;
+    transition: stroke 0.2s ease-in-out, stroke-width 0.2s ease-in-out;
+    z-index: 5;
+}
+
+/* --- START: New Stylable Hex State Icon Styles --- */
+.icon-non-explored, .icon-non-cartographized {
+    filter: grayscale(100%);
+}
+
+/* --- END: New Stylable Hex State Icon Styles --- */
