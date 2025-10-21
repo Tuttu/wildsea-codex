@@ -3,7 +3,7 @@
 {{ $overflowFilename := .Get "overflowImages" | default "" }}
 {{ $labelFilename := .Get "labelImages" | default "" }}
 {{ $showLegend := .Get "legend" | default "false" }}
-{{ $legendPos := .Get "legendPos" | default "left" }} {{/* <-- ADD THIS LINE */}}
+{{ $legendPos := .Get "legendPos" | default "left" }}
 
 {{/* Generate a unique ID for this map instance */}}
 {{ $mapID := printf "hexmap-%d" .Ordinal }}
@@ -43,8 +43,8 @@
 
 
 {{/* --- Render the Wrapper --- */}}
-{{/* MODIFIED: Added the new 'legend-pos-...' class */}}
-<div class="hexmap-wrapper legend-pos-{{ $legendPos }}" 
+{{/* MODIFIED: The unique ID is now on the wrapper */}}
+<div id="{{ $mapID }}" class="hexmap-wrapper legend-pos-{{ $legendPos }}" 
      data-map-id="{{ $mapID }}"
      data-hexjson-path="{{ $hexjsonPath }}"
      data-overflow-images-path="{{ $overflowImgPath }}"
@@ -64,7 +64,18 @@
         {{ end }}
     {{ end }}
 
-    {{/* This is the div our JS will target */}}
-    <div id="{{ $mapID }}" class="hexmap-container">
+    {{/* MODIFIED: The unique ID has been removed from here */}}
+    <div class="hexmap-container">
         </div>
+
+    {{/* --- This block now works correctly --- */}}
+    {{ if .Inner }}
+        {{/* Replace '&' with the wrapper's ID selector */}}
+        {{ $scopedCSS := replace .Inner "&" (printf "#%s" $mapID) }}
+        <style>
+        /* Specific styles for map {{ $mapID }} */
+        {{ $scopedCSS | safeCSS }}
+        </style>
+    {{ end }}
+
 </div>

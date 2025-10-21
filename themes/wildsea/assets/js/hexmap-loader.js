@@ -147,17 +147,24 @@ async function initializeHexmap(config) {
                 });
 
                 // --- Legend Hover (Region) ---
-                const regionLegendItems = legendEl.querySelectorAll('.region-legend li'); // Use class
-                regionLegendItems.forEach(item => {
+                // Find all collapsible headers that have a region ID
+                const regionLegendHeaders = legendEl.querySelectorAll('.collapsible-header[data-region-id]'); 
+                regionLegendHeaders.forEach(item => {
                     const regionId = item.getAttribute('data-region-id');
+                    // Find the corresponding SVG path for this boundary
                     const boundaryPath = hexmap.lines[regionId];
+                    
                     if (regionId && boundaryPath) {
+                        // Add mouseover event to highlight the boundary
                         item.addEventListener('mouseover', () => {
+                            // Bring the path to the front (for z-index)
                             if (boundaryPath.parentNode) {
                                 boundaryPath.parentNode.appendChild(boundaryPath);
                             }
                             boundaryPath.classList.add('boundary-highlight');
                         });
+                        
+                        // Add mouseout event to remove the highlight
                         item.addEventListener('mouseout', () => 
                             boundaryPath.classList.remove('boundary-highlight'));
                     }

@@ -13,11 +13,9 @@ categories = ['Location']
     labelImages="providence-labels.json"
     legend="true"
 >}}
-
-{{< hexmap 
-    hexjson="providence.hexjson"
-    overflowImages="providence-overflow2.json"
-    labelImages="providence-labels2.json"
-    legend="true"
-    legendPos="right"
->}}
+    & .hexmap-container {
+        background-image: url('Dark-Mist.png');
+        background-repeat: no-repeat;
+        background-position: 319px 377px;
+    }
+{{< /hexmap >}}

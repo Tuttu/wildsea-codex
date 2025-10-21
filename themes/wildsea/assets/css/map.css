@@ -50,6 +50,10 @@
     fill-opacity: 0;
 }
 
+.hexmap-container .hex-anchor path {
+    cursor: default !important;
+}
+
 .hexmap-container .hover path { 
     stroke-width: 0px; 
     /* transform: scale(1.75);  
