@@ -71,14 +71,19 @@ async function initializeHexmap(config) {
             // --- Tooltip Logic (Scoped) ---
             // We attach the tooltip to the map's container div
             const mapContainer = hexmap.el;
-            let tip = mapContainer.querySelector('.tooltip');
+            let tip = mapContainer.querySelector('.tooltip-hexmap');
             if (!tip) {
                 tip = document.createElement('div');
-                tip.classList.add('tooltip');
+                tip.classList.add('tooltip-hexmap');
                 mapContainer.appendChild(tip);
             }
             
             hexmap.on('mouseover',function(e){
+                // If the hex has the 'anchor' property,
+                // stop right here and don't show a tooltip.
+                if (e.data.data.anchor === true) {
+                    return;
+                }
                 tip.style.display = 'block';
                 tip.innerHTML = e.data.data.n+' ('+e.data.data.q+','+e.data.data.r+')<br />Region: '+(e.data.data.region || 'N/A');
                 const bb = e.target.getBoundingClientRect();

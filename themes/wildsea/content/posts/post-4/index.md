@@ -11,12 +11,13 @@ categories = ['Location']
     hexjson="providence.hexjson"
     overflowImages="providence-overflow.json"
     labelImages="providence-labels.json"
-    legend="false"
+    legend="true"
 >}}
 
 {{< hexmap 
     hexjson="providence.hexjson"
     overflowImages="providence-overflow2.json"
     labelImages="providence-labels2.json"
-    legend="false"
+    legend="true"
+    legendPos="right"
 >}}

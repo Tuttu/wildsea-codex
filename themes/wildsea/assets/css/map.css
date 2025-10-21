@@ -9,6 +9,19 @@
     }
 }
 
+.hexmap-wrapper {
+    display: flex;
+    flex-direction: row; /* This is the default "left" position */
+    width: fit-content;  /* Make the wrapper only as wide as its content */
+    margin: 10px auto;      /* Optional: centers the whole map+legend block */
+    gap: 10px;
+}
+
+/* This new rule flips the order when legendPos="right" */
+.hexmap-wrapper.legend-pos-right {
+    flex-direction: row-reverse;
+}
+
 .hexmap-container { 
     /*width: 932px; 
     height: 964px; */
@@ -145,21 +158,25 @@
     z-index: 10;
 }
 
-#legend-container {
-    position: absolute;
+.legend-container {
+    /* position: absolute;
     top: 20px;
     left: 20px;
+    z-index: 10; */
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid #817B58;
     border-radius: 5px;
     padding: 10px 15px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
     font-family: sans-serif;
     width: 200px;
+    box-sizing: border-box;  /* Ensures padding doesn't add to the width */
+    height: 932px;           /* Match your map's height */
+    overflow-y: auto;        /* Makes the legend scrollable if it's too long */
+    position: relative;      /* Keeps it in the layout flow */
 }
 
-#legend-filter {
+.legend-filter {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
@@ -178,6 +195,7 @@
 .collapsible-header {
     margin: 0 0 10px 0;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     position: relative;
     padding-right: 20px; /* Space for the arrow */
@@ -198,7 +216,7 @@
 }
 
 .collapsible-content {
-    max-height: 500px; /* Set a large max-height for expanded state */
+    max-height: 5000px; /* Set a large max-height for expanded state */
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
 }
@@ -230,7 +248,8 @@
 /* --- END: New Legend Styles --- */
 
 
-.hexmap-container .tooltip { 
+.hexmap-container .tooltip-hexmap { 
+    display: none;
     position: absolute; 
     text-align: center; 
     background: black; 
@@ -242,7 +261,7 @@
     z-index: 10
 }
 
-.hexmap-container .tooltip::after { content: ""; position: absolute; bottom: auto; width: 0; height: 0; border: 0.5em solid transparent; left: 50%; top: 0%; transform: translate3d(-50%,-100%,0); border-color: transparent; border-bottom-color: black; }
+.hexmap-container .tooltip-hexmap::after { content: ""; position: absolute; bottom: auto; width: 0; height: 0; border: 0.5em solid transparent; left: 50%; top: 0%; transform: translate3d(-50%,-100%,0); border-color: transparent; border-bottom-color: black; }
 
 /* --- Boundary Highlight Style --- */
 /* This class will be added via JavaScript on hover */

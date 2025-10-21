@@ -1,39 +1,40 @@
-{{/* Get file names from parameters */}}
+{{/* Get parameters */}}
 {{ $hexjsonFilename := .Get "hexjson" | default "" }}
 {{ $overflowFilename := .Get "overflowImages" | default "" }}
 {{ $labelFilename := .Get "labelImages" | default "" }}
 {{ $showLegend := .Get "legend" | default "false" }}
+{{ $legendPos := .Get "legendPos" | default "left" }} {{/* <-- ADD THIS LINE */}}
 
 {{/* Generate a unique ID for this map instance */}}
 {{ $mapID := printf "hexmap-%d" .Ordinal }}
 
-{{/*
-  --- Resource Path Logic ---
-  We now try to find the file as a Page Resource first.
-  If found, we use its .RelPermalink.
-  If not found, we fall back to relURL (for files in /static).
-*/}}
-
-{{/* --- Get HexJSON Path --- */}}
+{{/* --- Resource Path & Data Logic --- */}}
 {{ $hexjsonPath := "" }}
-{{ with .Page.Resources.GetMatch $hexjsonFilename }}
-    {{/* Found it in the page bundle! */}}
-    {{ $hexjsonPath = .RelPermalink }}
+{{ $hexjsonData := "" }}
+{{ $overflowImgPath := "" }}
+{{ $labelImgPath := "" }}
+
+{{/* --- 1. Get HexJSON Path & Data --- */}}
+{{ $hexjsonResource := .Page.Resources.GetMatch $hexjsonFilename }}
+{{ if $hexjsonResource }}
+    {{ $hexjsonPath = $hexjsonResource.RelPermalink }}
+    {{ with $hexjsonResource.Content }}
+        {{ $hexjsonData = . | unmarshal }}
+    {{ else }}
+        {{ warnf "Hexmap Shortcode: Found resource '%s' but it's empty." $hexjsonFilename }}
+    {{ end }}
 {{ else }}
-    {{/* Not in bundle. Assume it's a static path (e.g., /maps/file.json) */}}
     {{ $hexjsonPath = $hexjsonFilename | relURL }}
 {{ end }}
 
-{{/* --- Get Overflow Images Path --- */}}
-{{ $overflowImgPath := "" }}
+{{/* --- 2. Get Overflow Images Path --- */}}
 {{ with .Page.Resources.GetMatch $overflowFilename }}
     {{ $overflowImgPath = .RelPermalink }}
 {{ else }}
     {{ $overflowImgPath = $overflowFilename | relURL }}
 {{ end }}
 
-{{/* --- Get Label Images Path --- */}}
-{{ $labelImgPath := "" }}
+{{/* --- 3. Get Label Images Path --- */}}
 {{ with .Page.Resources.GetMatch $labelFilename }}
     {{ $labelImgPath = .RelPermalink }}
 {{ else }}
@@ -42,16 +43,25 @@
 
 
 {{/* --- Render the Wrapper --- */}}
-<div class="hexmap-wrapper" 
+{{/* MODIFIED: Added the new 'legend-pos-...' class */}}
+<div class="hexmap-wrapper legend-pos-{{ $legendPos }}" 
      data-map-id="{{ $mapID }}"
      data-hexjson-path="{{ $hexjsonPath }}"
      data-overflow-images-path="{{ $overflowImgPath }}"
      data-label-images-path="{{ $labelImgPath }}"
      data-show-legend="{{ $showLegend }}">
 
-    {{/* Conditionally render the legend *before* the map */}}
+    {{/* --- Conditionally render the legend --- */}}
     {{ if eq $showLegend "true" }}
-        {{ partial "hexmap-legend.html" . }}
+        {{ if $hexjsonData }}
+            {{ partial "hexmap-legend.html" (dict "data" $hexjsonData "mapID" $mapID) }}
+        {{ else }}
+            <div class="legend-container">
+                <p class="track-error"><strong>Legend Error:</strong><br>
+                Could not auto-generate legend.<br>
+                The 'hexjson' file must be in the same folder as the post (as a Page Resource).</p>
+            </div>
+        {{ end }}
     {{ end }}
 
     {{/* This is the div our JS will target */}}

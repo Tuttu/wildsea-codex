@@ -1,26 +1,82 @@
+{{/* This partial receives a context '.' containing:
+- .data: The unmarshaled hexjson data
+- .mapID: The unique ID of the map (e.g., "hexmap-0")
+*/}}
+
+{{/* --- 1. Find all unique region names --- */}}
+{{ $regions := slice }}
+{{ range .data.hexes }}
+    {{ with .region }}
+        {{ $regions = $regions | append . | uniq }}
+    {{ end }}
+{{ end }}
+{{ $regions = $regions | sort }}
+
+{{/* --- 2. Find all "Unknown" hexes --- */}}
+{{ $unknownHexes := slice }}
+{{ range $hexID, $hexData := .data.hexes }}
+    {{/* --- MODIFIED LINE ---
+      Only add if it has NO region AND is NOT an anchor
+    */}}
+    {{ if and (not $hexData.region) (ne $hexData.anchor true) }}
+        {{ $unknownHexes = $unknownHexes | append (dict "id" $hexID "data" $hexData) }}
+    {{ end }}
+{{ end }}
+
+
+{{/* --- 3. Build the Legend HTML --- */}}
 <div class="legend-container">
     <input type="text" class="legend-filter" placeholder="Filter locations...">
 
-    <div class="legend-section">
-        <h2 class="collapsible-header">Points of Interest</h2>
-        <div class="collapsible-content">
-            <ul class="hexmap-legend poi-legend">
-                <li data-hex-id="Providence"><span class="explored">🔎</span><span class="cartographized">🗺️</span>Providence</li>
-                <li data-hex-id="Abundance"><span class="explored">🔎</span><span class="cartographized">🗺️</span>Abundance</li>
-                <li data-hex-id="Opulence"><span class="icon-non-explored">🔎</span><span class="icon-non-cartographized">🗺️</span>Opulence</li>
-                <li data-hex-id="Repentance"><span class="icon-non-explored">🔎</span><span class="icon-non-cartographized">🗺️</span>Repentance</li>
-                <li data-hex-id="Penitence"><span class="icon-non-explored">🔎</span><span class="icon-non-cartographized">🗺️</span>Penitence</li>
-            </ul>
+    {{/* --- 4. Loop over each known region and create a section --- */}}
+    {{ range $regions }}
+        {{ $currentRegion := . }}
+        <div class="legend-section">
+            <h2 class="collapsible-header">{{ $currentRegion }}</h2>
+            <div class="collapsible-content">
+                <ul class="hexmap-legend poi-legend">
+                    
+                    {{/* Find all hexes that match this region */}}
+                    {{ range $hexID, $hexData := $.data.hexes }}
+                        {{/* --- MODIFIED LINE ---
+                          Only add if region matches AND is NOT an anchor
+                        */}}
+                        {{ if and (eq $hexData.region $currentRegion) (ne $hexData.anchor true) }}
+                            <li data-hex-id="{{ $hexID }}">
+                                {{ $explored := $hexData.e | default false }}
+                                {{ $cartographed := $hexData.c | default false }}
+                                
+                                <span class="{{ if $explored }}explored{{ else }}icon-non-explored{{ end }}">🔎</span>
+                                <span class="{{ if $cartographed }}cartographized{{ else }}icon-non-cartographized{{ end }}">🗺️</span>
+                                
+                                {{ $hexData.n | default $hexID }}
+                            </li>
+                        {{ end }}
+                    {{ end }}
+                </ul>
+            </div>
         </div>
-    </div>
+    {{ end }}
 
-    <div class="legend-section">
-        <h2 class="collapsible-header">Regions</h2>
-        <div class="collapsible-content">
-            <ul class="hexmap-legend region-legend">
-                <li data-region-id="Abundance">Abundance Region</li>
-                <li data-region-id="Rotipedes' Territory">Rotipedes' Territory</li>
-            </ul>
+    {{/* --- 5. Create the "Unknown Region" section (if any) --- */}}
+    {{ if gt (len $unknownHexes) 0 }}
+        <div class="legend-section">
+            <h2 class="collapsible-header">Unknown Region</h2>
+            <div class="collapsible-content">
+                <ul class="hexmap-legend poi-legend">
+                    {{ range $unknownHexes }}
+                        <li data-hex-id="{{ .id }}">
+                            {{ $explored := .data.e | default false }}
+                            {{ $cartographed := .data.c | default false }}
+                            
+                            <span class="{{ if $explored }}explored{{ else }}icon-non-explored{{ end }}">🔎</span>
+                            <span class="{{ if $cartographed }}cartographized{{ else }}icon-non-cartographized{{ end }}">🗺️</span>
+                            
+                            {{ .data.n | default .id }}
+                        </li>
+                    {{ end }}
+                </ul>
+            </div>
         </div>
-    </div>
+    {{ end }}
 </div>
