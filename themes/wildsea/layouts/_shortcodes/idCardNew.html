@@ -1,0 +1,67 @@
+{{/* Get all the parameters */}}
+{{ $name := .Get "name" | default "Unknown" }}
+{{ $bloodline := .Get "bloodline" | default "Unknown" }}
+{{ $origin := .Get "origin" | default "Unknown" }}
+{{ $post := .Get "post" | default "Unknown" }}
+{{ $quote := .Get "quote" | default "Unknown" }}
+
+{{ $portraitFile := .Get "portrait" }}
+{{ $portraitSrc := "" }} {{/* Initialize an empty variable for the final path */}}
+
+{{/* Try to find the image provided in the 'portrait' parameter 
+  within this page's resources.
+*/}}
+{{ with .Page.Resources.GetMatch $portraitFile }}
+    {{/* SUCCESS: We found the image. 
+      Use its .RelPermalink, which is the absolute path (e.g., /post-3/portrait.png)
+    */}}
+    {{ $portraitSrc = .RelPermalink }}
+{{ else }}
+    {{/* FAILURE: We couldn't find the image OR no image was specified.
+      We'll log a warning if a file was specified but not found.
+    */}}
+    {{ if $portraitFile }}
+        {{ warnf "idCard shortcode: Image resource '%s' not found in page %s." $portraitFile .Page.File.Path }}
+    {{ end }}
+    
+    {{/* Use a fallback default image. */}}
+    {{ $portraitSrc = "/wildsea-codex/img/default-portrait.png" }}
+{{ end }}
+{{/* --- End Portrait Logic --- */}}
+
+<div class="id-card">
+    <h1 class="title">WILDSEA PASSPORT</h1>
+    <div class="card-content">
+        <div class="portrait-frame">
+            <img src="{{ $portraitSrc }}" alt="{{ $name }}'s Portrait" class="portrait">
+        </div>
+        <div class="info">
+            <h2>{{ $name }}</h2>
+            <p><span class="icon">🩸</span><strong>Bloodline:</strong> {{ $bloodline }}</p>
+            <p><span class="icon">🍃</span><strong>Origin:</strong> {{ $origin }}</p>
+            <p><span class="icon">🛠️</span><strong>Post:</strong> {{ $post }}</p>
+        </div>
+    </div>
+    <p class="quote">{{ $quote }}</p>
+</div>
+
+<div class="card-frame">
+        <h1 class="title">WILDSEA PASSPORT</h1>
+        <div class="title-bar stone-bar">{{ $name }}</div>
+        <div class="art-box">
+            <img src="{{ $portraitSrc }}" alt="{{ $name }}'s Portrait" class="portrait">
+        </div>
+
+        <div class="content-container">
+            <div class="content-box box-bloodline">
+                <span class="icon">🩸</span><strong>Bloodline:</strong> {{ $bloodline }}
+            </div>
+            <div class="content-box box-origin">
+                <span class="icon">🍃</span><strong>Origin:</strong> {{ $origin }}
+            </div>
+            <div class="content-box box-post">
+                <span class="icon">🛠️</span><strong>Post:</strong> {{ $post }}
+            </div>
+        </div>
+        <div class="type-bar stone-bar">{{ $quote }}</div>
+    </div>

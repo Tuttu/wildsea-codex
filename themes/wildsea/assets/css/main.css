@@ -110,3 +110,80 @@ ul {
 	font-size: 1.2rem;
 	color: #2a3f2a;
 }
+
+
+/* The main card frame */
+        .card-frame {
+            width: 350px;
+            aspect-ratio: 5 / 7;
+            
+            /* The dark green, mossy background */
+            background: linear-gradient(135deg, #3a5a43 0%, #2a4a33 30%, #30503a 70%, #2a4a33 100%);
+            
+            border-radius: 18px; /* Rounded corners for the whole card */
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #1a2a1f;
+        }
+
+        /* Reusable class for the stone-textured bars */
+        .stone-bar {
+            background-color: #c8d1c8;
+            box-shadow: inset 0 2px 3px rgba(0,0,0,0.2), 
+                        inset 0 -2px 3px rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        .title-bar {
+            height: 40px;
+        }
+
+        .art-box {
+            height: 256px;
+            width: 256px;
+            margin: 0 auto; /* Center the art box horizontally */
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 20px; 
+            border: 3px solid #b0b8b0;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+        }
+
+        .type-bar {
+            height: 35px;
+        }
+
+        /* NEW: This is the container for your 3 boxes */
+        .content-container {
+            flex-grow: 1; /* Makes it fill the remaining space */
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden; /* Clips the corners of the children */
+        }
+
+        /* NEW: A shared class for all 3 content boxes */
+        .content-box {
+            padding: 8px 12px;
+            box-sizing: border-box; /* Ensures padding doesn't break layout */
+            color: #222;
+            font-size: 14px;
+        }
+
+        /* NEW: Individual styles for each box */
+        .box-bloodline {
+            background-color: #bac3ba; /* Lighter color */
+            flex: 1; /* Takes up 1 part of the available space */
+        }
+
+        .box-origin {
+            background-color: #9fa89f; /* Darker "smudge" color */
+            flex: 1; /* Takes up 3 parts (making it 3x taller) */
+        }
+
+        .box-post {
+            background-color: #bac3ba; /* Lighter color */
+            flex: 1; /* Takes up 1 part of the available space */
+        }
