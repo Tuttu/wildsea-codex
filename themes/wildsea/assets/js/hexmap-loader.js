@@ -127,11 +127,23 @@ async function initializeHexmap(config) {
                                 item.classList.add('hidden');
                             }
                         });
+
                         const header = section.querySelector('.collapsible-header');
+
+                        // Rule 1: Hide or show the header itself
                         if (visibleItems === 0 && searchTerm) {
                             header.classList.add('hidden');
                         } else {
                             header.classList.remove('hidden');
+                        }
+
+                        // Rule 2: Expand or collapse the section
+                        if (visibleItems > 0 && searchTerm) {
+                            // If there are matches AND the user is searching, expand it
+                            header.classList.add('active');
+                        } else {
+                            // If there are no matches OR the filter is empty, collapse it
+                            header.classList.remove('active');
                         }
                     });
                 });
