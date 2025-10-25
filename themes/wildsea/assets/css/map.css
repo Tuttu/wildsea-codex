@@ -127,7 +127,7 @@
 */
 .label-layer img {
     pointer-events: auto;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 /* This new class will define the 'hidden' state for an image:
@@ -265,7 +265,38 @@
     z-index: 10
 }
 
-.hexmap-container .tooltip-hexmap::after { content: ""; position: absolute; bottom: auto; width: 0; height: 0; border: 0.5em solid transparent; left: 50%; top: 0%; transform: translate3d(-50%,-100%,0); border-color: transparent; border-bottom-color: black; }
+.hexmap-container .tooltip-hexmap::after { 
+    content: ""; 
+    position: absolute; 
+    bottom: auto; 
+    width: 0; 
+    height: 0; 
+    border: 0.5em solid transparent; 
+    left: 50%; 
+    top: 0%; 
+    transform: translate3d(-50%,-100%,0); 
+    border-color: transparent; 
+    border-bottom-color: black; 
+}
+
+/* Style all paths in the 'lines' group with a default */
+.hexmap-container .lines path {
+    stroke: #333;
+    stroke-width: 2px;
+    fill: none;
+}
+
+/* Use the "ends with" selector to set default styles.
+  This makes "Abundance_Dashed" dashed.
+*/
+.hexmap-container .lines path[data-name$="_Dashed"] {
+    stroke-dasharray: 6, 4;
+}
+
+/* This makes "Abundance_Solid" solid. */
+.hexmap-container .lines path[data-name$="_Solid"] {
+    stroke-dasharray: none;
+}
 
 /* --- Boundary Highlight Style --- */
 /* This class will be added via JavaScript on hover */

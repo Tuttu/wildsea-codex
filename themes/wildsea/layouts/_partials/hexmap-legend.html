@@ -15,9 +15,6 @@
 {{/* --- 2. Find all "Unknown" hexes --- */}}
 {{ $unknownHexes := slice }}
 {{ range $hexID, $hexData := .data.hexes }}
-    {{/* --- MODIFIED LINE ---
-      Only add if it has NO region AND is NOT an anchor
-    */}}
     {{ if and (not $hexData.region) (ne $hexData.anchor true) }}
         {{ $unknownHexes = $unknownHexes | append (dict "id" $hexID "data" $hexData) }}
     {{ end }}
@@ -31,16 +28,46 @@
     {{/* --- 4. Loop over each known region and create a section --- */}}
     {{ range $regions }}
         {{ $currentRegion := . }}
+
+        {{/* --- NEW: Calculate Cartography Stats --- */}}
+        {{ $total := 0 }}
+        {{ $carto := 0 }}
+        {{/* Get the threshold from the new .data.regions object, default to 9999 */}}
+        {{ $threshold := index $.data.regions $currentRegion "carto_threshold" | default 9999 }}
+
+        {{/* Loop all hexes to find stats for this region */}}
+        {{ range $hexID, $hexData := $.data.hexes }}
+            {{ if and (eq $hexData.region $currentRegion) (ne $hexData.anchor true) }}
+                {{ $total = add $total 1 }}
+                {{/* Check if "c" property is true */}}
+                {{ if $hexData.c }}
+                    {{ $carto = add $carto 1 }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+
+        {{/* Determine class and tooltip */}}
+        {{ $isCarto := ge $carto $threshold }}
+        {{ $cartoClass := "icon-non-cartographized" }}
+        {{ if $isCarto }}
+            {{ $cartoClass = "cartographized" }}
+        {{ end }}
+        {{ $tooltip := printf "%d/%d hexes cartographized" $carto $total }}
+        {{/* --- END NEW LOGIC --- */}}
+        
         <div class="legend-section">
-            <h2 class="collapsible-header" data-region-id="{{ $currentRegion }}">{{ $currentRegion }}</h2>
+            {{/* --- MODIFIED H2 --- */}}
+            <h2 class="collapsible-header" data-region-id="{{ $currentRegion }}">
+                {{/* Use 🗺️ for cartography, as it matches your existing classes */}}
+                {{/*  <span class="{{ $cartoClass }}" title="{{ $tooltip }}">🗺️</span>  */}}
+                {{ $currentRegion }}
+            </h2>
+
             <div class="collapsible-content">
                 <ul class="hexmap-legend poi-legend">
                     
                     {{/* Find all hexes that match this region */}}
                     {{ range $hexID, $hexData := $.data.hexes }}
-                        {{/* --- MODIFIED LINE ---
-                          Only add if region matches AND is NOT an anchor
-                        */}}
                         {{ if and (eq $hexData.region $currentRegion) (ne $hexData.anchor true) }}
                             <li data-hex-id="{{ $hexID }}">
                                 {{ $explored := $hexData.e | default false }}
@@ -61,6 +88,7 @@
     {{/* --- 5. Create the "Unknown Region" section (if any) --- */}}
     {{ if gt (len $unknownHexes) 0 }}
         <div class="legend-section">
+            {{/* "Unknown Region" doesn't get a status icon */}}
             <h2 class="collapsible-header">Unknown Region</h2>
             <div class="collapsible-content">
                 <ul class="hexmap-legend poi-legend">

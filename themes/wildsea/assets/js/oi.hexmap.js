@@ -446,6 +446,7 @@
 					imgEl.style.position = 'absolute';
 					imgEl.style.width = imgConfig.width + 'px';
 					imgEl.style.height = imgConfig.height + 'px';
+					imgEl.classList.add("map-label")
 
                     imgEl.addEventListener('mouseover', function(e) {
                         if (hiddenImage === null) {

@@ -3,7 +3,7 @@ title = 'Map of the Providence Ring reach'
 draft = false
 +++
 
-*It is said than in the past, there was a sixth settlement that was completing the ring. Nowadays, it looks more like a horseshoe than a ring...*
+*It is said that in the past, there was a sixth settlement that was completing the ring. Nowadays, it looks more like a horseshoe than a ring...*
 {{< hexmap 
     hexjson="providence.hexjson"
     overflowImages="providence-overflow.json"

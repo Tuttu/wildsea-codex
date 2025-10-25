@@ -151,22 +151,34 @@ async function initializeHexmap(config) {
                 const regionLegendHeaders = legendEl.querySelectorAll('.collapsible-header[data-region-id]'); 
                 regionLegendHeaders.forEach(item => {
                     const regionId = item.getAttribute('data-region-id');
-                    // Find the corresponding SVG path for this boundary
-                    const boundaryPath = hexmap.lines[regionId];
                     
-                    if (regionId && boundaryPath) {
-                        // Add mouseover event to highlight the boundary
+                    // Get the map's root element to search within it
+                    const mapContainer = hexmap.el; 
+                    
+                    // Find ALL path segments that START WITH this region's name
+                    const boundaryPaths = mapContainer.querySelectorAll(`.lines path[data-name^="${regionId}"]`);
+
+                    if (regionId && boundaryPaths.length > 0) {
+                        // Add mouseover event to the legend header
                         item.addEventListener('mouseover', () => {
-                            // Bring the path to the front (for z-index)
-                            if (boundaryPath.parentNode) {
-                                boundaryPath.parentNode.appendChild(boundaryPath);
-                            }
-                            boundaryPath.classList.add('boundary-highlight');
+                            // Loop through all found paths and highlight them
+                            document.querySelectorAll(".map-label").forEach( x => x.classList.add("image-hidden"))
+                            boundaryPaths.forEach(path => {
+                                if (path.parentNode) {
+                                    path.parentNode.appendChild(path); // Bring to front
+                                }
+                                path.classList.add('boundary-highlight');
+                            });
                         });
                         
-                        // Add mouseout event to remove the highlight
-                        item.addEventListener('mouseout', () => 
-                            boundaryPath.classList.remove('boundary-highlight'));
+                        // Add mouseout event to the legend header
+                        item.addEventListener('mouseout', () => {
+                            document.querySelectorAll(".map-label").forEach( x => x.classList.remove("image-hidden"))
+                            // Loop through all found paths and remove the highlight
+                            boundaryPaths.forEach(path => {
+                                path.classList.remove('boundary-highlight');
+                            });
+                        });
                     }
                 });
             }

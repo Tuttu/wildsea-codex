@@ -15,7 +15,7 @@
 		"RotipedeHive":{"n":"Caved-in Rotidepes Hive","q":10,"r":10,"region":"Rotipedes' Territory", "e":true},
 		"Fields2":{"n":"Slickpears and Mammoth Cashews fields","q":10,"r":12,"region":"Abundance", "e":true},
 		"Abundance":{"n":"Abundance","q":10,"r":13,"region":"Abundance", "c":true, "e":true},
-		"Providence":{"n":"Providence","q":10,"r":20, "c":true, "e":true},
+		"Providence":{"n":"Providence","q":10,"r":20,"region":"Providence", "c":true, "e":true},
 		"CalmSea1":{"n":"Calm Sea","q":10,"r":11,"region":"Rotipedes' Territory", "e":true},
 		"RotipedeTunnels":{"n":"Opened Rotipedes tunnels","q":11,"r":11,"region":"Rotipedes' Territory", "c":true, "e":true},
 		"FieldsWiskeypeach":{"n":"Overgrown Whiskeypeaches Orchard","q":11,"r":13,"region":"Abundance", "c":true, "e":true},
@@ -53,6 +53,29 @@
 			]
 		},
 		"Rotipedes' Territory": {
+			"type": "region",
+			"edges": [
+				{"q":9,"r":11,"e":1},				
+				{"q":9,"r":11,"e":3},				
+				{"q":9,"r":11,"e":4},				
+				{"q":9,"r":11,"e":5},
+				{"q":9,"r":11,"e":6},				
+				{"q":10,"r":10,"e":1},
+				{"q":10,"r":10,"e":2},
+				{"q":10,"r":10,"e":3},
+				{"q":10,"r":10,"e":5},
+				{"q":10,"r":10,"e":6},				
+				{"q":10,"r":11,"e":2},				
+				{"q":10,"r":11,"e":4},				
+				{"q":10,"r":11,"e":6},				
+				{"q":11,"r":11,"e":1},				
+				{"q":11,"r":11,"e":2},				
+				{"q":11,"r":11,"e":3},				
+				{"q":11,"r":11,"e":4},				
+				{"q":11,"r":11,"e":5}						
+			]
+		},
+		"Providence": {
 			"type": "region",
 			"edges": [
 				{"q":9,"r":11,"e":1},				

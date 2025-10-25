@@ -1,78 +1,333 @@
 {
-	"layout":"odd-q",
+	"layout": "odd-q",
 	"originPoint": "left-top",
 	"hexes": {
-		"Top-Left":{"n":"0,0","q":0,"r":0,"anchor":true, "class":"hex-anchor"},
-		"Bottom-Left":{"n":"00,31","q":0,"r":31, "c":true, "e":true,"anchor":true, "class":"hex-anchor"},
-		"Leafshadow":{"n":"Leafshadow Research Center","q":9,"r":11,"region":"Rotipedes' Territory", "e":true},
-		"FieldsParasite":{"n":"Parasite Farm","q":9,"r":13,"region":"Abundance", "e":true},
-		"AbundanceAirship":{"n":"Observation Airship","q":9,"r":14, "e":true},
-		"SqwikerTrail":{"n":"Sqwiker's Trail","q":9,"r":15, "e":true},
-		"WreckWilly":{"n":"Willy's Ship wreck","q":9,"r":16, "e":true},
-		"CalmSea2":{"n":"Calm Sea","q":9,"r":17, "e":true},
-		"WreckOutrider":{"n":"Wrecked Outrider","q":9,"r":18, "e":true},
-		"Sporewhip":{"n":"Sporewhip Tempest","q":9,"r":19, "e":true},
-		"RotipedeHive":{"n":"Caved-in Rotidepes Hive","q":10,"r":10,"region":"Rotipedes' Territory", "e":true},
-		"Fields2":{"n":"Slickpears and Mammoth Cashews fields","q":10,"r":12,"region":"Abundance", "e":true},
-		"Abundance":{"n":"Abundance","q":10,"r":13,"region":"Abundance", "c":true, "e":true},
-		"Providence":{"n":"Providence","q":10,"r":20, "c":true, "e":true},
-		"CalmSea1":{"n":"Calm Sea","q":10,"r":11,"region":"Rotipedes' Territory", "e":true},
-		"RotipedeTunnels":{"n":"Opened Rotipedes tunnels","q":11,"r":11,"region":"Rotipedes' Territory", "c":true, "e":true},
-		"FieldsWiskeypeach":{"n":"Overgrown Whiskeypeaches Orchard","q":11,"r":13,"region":"Abundance", "c":true, "e":true},
-		"PiratesAttack":{"n":"Pirate's attack","q":12,"r":12, "e":true},
-		"CalmSea3":{"n":"Calm Sea","q":12,"r":13, "c":true, "e":true},
-		"WreckhubaBaa":{"n":"Huba Baa's crashed ship","q":12,"r":14, "e":true},
-		"DarkMistCenter":{"n":"Dark Mist","q":16,"r":17,"anchor":true, "class":"hex-anchor"},
-		"Opulence":{"n":"Opulence","q":18,"r":11},
-		"Repentance":{"n":"Repentance","q":22,"r":20},
-		"Penitence":{"n":"Penitence","q":24,"r":14},
-		"Bottom-Right":{"n":"35,31","q":35,"r":31,"anchor":true, "class":"hex-anchor"}
+		"Top-Left": {
+			"n": "0,0",
+			"q": 0,
+			"r": 0,
+			"anchor": true,
+			"class": "hex-anchor"
+		},
+		"Bottom-Left": {
+			"n": "00,31",
+			"q": 0,
+			"r": 31,
+			"c": true,
+			"e": true,
+			"anchor": true,
+			"class": "hex-anchor"
+		},
+		"Leafshadow": {
+			"n": "Leafshadow Research Center",
+			"q": 9,
+			"r": 11,
+			"region": "Rotipedes' Territory",
+			"e": true
+		},
+		"FieldsParasite": {
+			"n": "Parasite Farm",
+			"q": 9,
+			"r": 13,
+			"region": "Abundance",
+			"e": true
+		},
+		"AbundanceAirship": {
+			"n": "Observation Airship",
+			"q": 9,
+			"r": 14,
+			"region": "Squiker's Territory",
+			"e": true
+		},
+		"SquikerTrail": {
+			"n": "Squiker's Trail",
+			"q": 9,
+			"r": 15,
+			"region": "Squiker's Territory",
+			"e": true
+		},
+		"WreckWilly": {
+			"n": "Willy's Ship wreck",
+			"q": 9,
+			"r": 16,
+			"region": "Squiker's Territory",
+			"e": true
+		},
+		"CalmSea2": {
+			"n": "Calm Sea",
+			"q": 9,
+			"r": 17,
+			"e": true
+		},
+		"WreckOutrider": {
+			"n": "Wrecked Outrider",
+			"q": 9,
+			"r": 18,
+			"region": "Sporeveil (The)",
+			"e": true
+		},
+		"Sporewhip": {
+			"n": "Sporewhip Tempest",
+			"q": 9,
+			"r": 19,
+			"region": "Sporeveil (The)",
+			"e": true
+		},
+		"RotipedeHive": {
+			"n": "Caved-in Rotidepes Hive",
+			"q": 10,
+			"r": 10,
+			"region": "Rotipedes' Territory",
+			"e": true
+		},
+		"Fields2": {
+			"n": "Slickpears and Mammoth Cashews fields",
+			"q": 10,
+			"r": 12,
+			"region": "Abundance",
+			"e": true
+		},
+		"Abundance": {
+			"n": "Abundance",
+			"q": 10,
+			"r": 13,
+			"region": "Abundance",
+			"c": true,
+			"e": true
+		},
+		"Providence": {
+			"n": "Providence",
+			"q": 10,
+			"r": 20,
+			"region": "Providence",
+			"c": true,
+			"e": true
+		},
+		"CalmSea1": {
+			"n": "Calm Sea",
+			"q": 10,
+			"r": 11,
+			"region": "Rotipedes' Territory",
+			"e": true
+		},
+		"RotipedeTunnels": {
+			"n": "Opened Rotipedes tunnels",
+			"q": 11,
+			"r": 11,
+			"region": "Rotipedes' Territory",
+			"c": true,
+			"e": true
+		},
+		"FieldsWiskeypeach": {
+			"n": "Overgrown Whiskeypeaches Orchard",
+			"q": 11,
+			"r": 13,
+			"region": "Abundance",
+			"c": true,
+			"e": true
+		},
+		"PiratesAttack": {
+			"n": "Pirate's attack",
+			"q": 12,
+			"r": 12,
+			"region": "Secluded Driftwood Cove",
+			"e": true
+		},
+		"CalmSea3": {
+			"n": "Calm Sea",
+			"q": 12,
+			"r": 13,
+			"region": "Secluded Driftwood Cove",
+			"c": true,
+			"e": true
+		},
+		"WreckhubaBaa": {
+			"n": "Huba Baa's crashed ship",
+			"q": 12,
+			"r": 14,
+			"region": "Dark Mist (Outer)",
+			"e": true
+		},
+		"DarkMistCenter": {
+			"n": "Dark Mist",
+			"q": 16,
+			"r": 17,
+			"anchor": true,
+			"class": "hex-anchor"
+		},
+		"Opulence": {
+			"n": "Opulence",
+			"q": 18,
+			"r": 11
+		},
+		"Repentance": {
+			"n": "Repentance",
+			"q": 22,
+			"r": 20
+		},
+		"Penitence": {
+			"n": "Penitence",
+			"q": 24,
+			"r": 14
+		},
+		"Bottom-Right": {
+			"n": "35,31",
+			"q": 35,
+			"r": 31,
+			"anchor": true,
+			"class": "hex-anchor"
+		}
+	},
+	"regions": {
+		"Abundance": {
+			"carto_threshold": 4
+		},
+		"Rotipedes' Territory": {
+			"carto_threshold": 4
+		}
 	},
 	"boundaries": {
 		"Abundance": {
 			"type": "region",
 			"edges": [
-				{"q":10,"r":12,"e":1},
-				{"q":10,"r":12,"e":2},
-				{"q":10,"r":12,"e":6},
-				{"q":11,"r":12,"e":1},
-				{"q":11,"r":12,"e":2},
-				{"q":11,"r":12,"e":3},
-				{"q":11,"r":13,"e":2},
-				{"q":11,"r":13,"e":3},
-				{"q":11,"r":13,"e":4},
-				{"q":10,"r":14,"e":3},
-				{"q":10,"r":14,"e":4},
-				{"q":10,"r":14,"e":5},
-				{"q":9,"r":13,"e":4},
-				{"q":9,"r":13,"e":5},
-				{"q":9,"r":13,"e":6},
-				{"q":9,"r":12,"e":5},
-				{"q":9,"r":12,"e":6},
-				{"q":9,"r":12,"e":1}
+				{ "q": 10, "r": 12, "e": 1 }, 
+				{ "q": 10, "r": 12, "e": 2 }, 
+				{ "q": 10, "r": 12, "e": 6 }, 
+				{ "q": 11, "r": 12, "e": 1 }, 
+				{ "q": 11, "r": 12, "e": 2 }, 
+				{ "q": 11, "r": 12, "e": 3 }, 
+				{ "q": 11, "r": 13, "e": 2 }, 
+				{ "q": 11, "r": 13, "e": 3 }, 
+				{ "q": 11, "r": 13, "e": 4 }, 
+				{ "q": 10, "r": 14, "e": 3 }, 
+				{ "q": 10, "r": 14, "e": 4 }, 
+				{ "q": 10, "r": 14, "e": 5 }, 
+				{ "q": 9, "r": 13, "e": 4 }, 
+				{ "q": 9, "r": 13, "e": 5 }, 
+				{ "q": 9, "r": 13, "e": 6 }, 
+				{ "q": 9, "r": 12, "e": 5 }, 
+				{ "q": 9, "r": 12, "e": 6 }, 
+				{ "q": 9, "r": 12, "e": 1 }
+			]
+		},
+		"Dark Mist (Outer)_Solid": {
+			"type": "region",
+			"edges": [
+				{ "q": 11, "r": 14, "e": 1 },  
+				{ "q": 12, "r": 14, "e": 1 },  
+				{ "q": 12, "r": 14, "e": 6 },
+				{ "q": 13, "r": 13, "e": 6 }
+			]
+		},
+		"Dark Mist (Outer)_Dashed": {
+			"type": "region",
+			"edges": [
+				{ "q": 11, "r": 14, "e": 6 },
+				{ "q": 13, "r": 13, "e": 1 }
+			]
+		},
+		"Providence": {
+			"type": "region",
+			"edges": [
+				{ "q": 9, "r": 20, "e": 1 }, 
+				{ "q": 9, "r": 20, "e": 4 }, 
+				{ "q": 9, "r": 20, "e": 5 }, 
+				{ "q": 9, "r": 20, "e": 6 }, 
+				{ "q": 10, "r": 20, "e": 1 }, 
+				{ "q": 10, "r": 20, "e": 6 }, 
+				{ "q": 10, "r": 21, "e": 3 }, 
+				{ "q": 10, "r": 21, "e": 4 }, 
+				{ "q": 10, "r": 21, "e": 5 }, 
+				{ "q": 11, "r": 19, "e": 1 }, 
+				{ "q": 11, "r": 19, "e": 2 }, 
+				{ "q": 11, "r": 19, "e": 3 }, 
+				{ "q": 11, "r": 19, "e": 6 }, 
+				{ "q": 11, "r": 20, "e": 2 }, 
+				{ "q": 11, "r": 20, "e": 3 }, 
+				{ "q": 11, "r": 20, "e": 4 }
 			]
 		},
 		"Rotipedes' Territory": {
 			"type": "region",
 			"edges": [
-				{"q":9,"r":11,"e":1},				
-				{"q":9,"r":11,"e":3},				
-				{"q":9,"r":11,"e":4},				
-				{"q":9,"r":11,"e":5},
-				{"q":9,"r":11,"e":6},				
-				{"q":10,"r":10,"e":1},
-				{"q":10,"r":10,"e":2},
-				{"q":10,"r":10,"e":3},
-				{"q":10,"r":10,"e":5},
-				{"q":10,"r":10,"e":6},				
-				{"q":10,"r":11,"e":2},				
-				{"q":10,"r":11,"e":4},				
-				{"q":10,"r":11,"e":6},				
-				{"q":11,"r":11,"e":1},				
-				{"q":11,"r":11,"e":2},				
-				{"q":11,"r":11,"e":3},				
-				{"q":11,"r":11,"e":4},				
-				{"q":11,"r":11,"e":5}						
+				{ "q": 9, "r": 11, "e": 1 }, 
+				{ "q": 9, "r": 11, "e": 3 }, 
+				{ "q": 9, "r": 11, "e": 4 }, 
+				{ "q": 9, "r": 11, "e": 5 }, 
+				{ "q": 9, "r": 11, "e": 6 }, 
+				{ "q": 10, "r": 10, "e": 1 }, 
+				{ "q": 10, "r": 10, "e": 2 }, 
+				{ "q": 10, "r": 10, "e": 3 }, 
+				{ "q": 10, "r": 10, "e": 5 }, 
+				{ "q": 10, "r": 10, "e": 6 }, 
+				{ "q": 10, "r": 11, "e": 2 }, 
+				{ "q": 10, "r": 11, "e": 4 }, 
+				{ "q": 10, "r": 11, "e": 6 }, 
+				{ "q": 11, "r": 11, "e": 1 }, 
+				{ "q": 11, "r": 11, "e": 2 }, 
+				{ "q": 11, "r": 11, "e": 3 }, 
+				{ "q": 11, "r": 11, "e": 4 }, 
+				{ "q": 11, "r": 11, "e": 5 }
+			]
+		},
+		"Secluded Driftwood Cove": {
+			"type": "region",
+			"edges": [
+				{ "q": 12, "r": 11, "e": 1 }, 
+				{ "q": 12, "r": 11, "e": 2 }, 
+				{ "q": 12, "r": 11, "e": 5 }, 
+				{ "q": 12, "r": 11, "e": 6 }, 
+				{ "q": 12, "r": 12, "e": 5 },
+				{ "q": 12, "r": 12, "e": 6 },
+				{ "q": 12, "r": 13, "e": 3 },
+				{ "q": 12, "r": 13, "e": 4 },
+				{ "q": 12, "r": 13, "e": 5 },
+				{ "q": 12, "r": 13, "e": 6 },
+				{ "q": 13, "r": 11, "e": 1 },
+				{ "q": 13, "r": 11, "e": 2 },
+				{ "q": 13, "r": 11, "e": 3 },
+				{ "q": 13, "r": 12, "e": 2 },
+				{ "q": 13, "r": 12, "e": 3 },
+				{ "q": 13, "r": 12, "e": 4 }
+			]
+		},
+		"Squiker's Territory_Solid": {
+			"type": "region",
+			"edges": [
+				{ "q": 9, "r": 14, "e": 1 }, 
+				{ "q": 9, "r": 14, "e": 2 }, 
+				{ "q": 9, "r": 14, "e": 6 }, 
+				{ "q": 9, "r": 16, "e": 3 }, 
+				{ "q": 9, "r": 16, "e": 4 }, 
+				{ "q": 9, "r": 16, "e": 5 }		
+			]
+		},
+		"Squiker's Territory_Dashed": {
+			"type": "region",
+			"edges": [
+				{ "q": 8, "r": 15, "e": 1 }, 
+				{ "q": 8, "r": 16, "e": 4 }, 
+				{ "q": 10, "r": 15, "e": 1 }, 
+				{ "q": 10, "r": 16, "e": 4 }
+			]
+		},
+		"Sporeveil (The)": {
+			"type": "region",
+			"edges": [
+				{ "q": 8, "r": 19, "e": 1 }, 
+				{ "q": 8, "r": 19, "e": 4 }, 
+				{ "q": 8, "r": 19, "e": 5 }, 
+				{ "q": 8, "r": 19, "e": 6 }, 
+				{ "q": 9, "r": 18, "e": 1 }, 
+				{ "q": 9, "r": 18, "e": 2 }, 
+				{ "q": 9, "r": 18, "e": 6 }, 
+				{ "q": 9, "r": 19, "e": 3 }, 
+				{ "q": 9, "r": 19, "e": 4 }, 
+				{ "q": 9, "r": 19, "e": 5 }, 
+				{ "q": 10, "r": 19, "e": 1 }, 
+				{ "q": 10, "r": 19, "e": 2 }, 
+				{ "q": 10, "r": 19, "e": 3 }, 
+				{ "q": 10, "r": 19, "e": 4 }
 			]
 		}
 	}
